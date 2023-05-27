@@ -17,25 +17,19 @@ public class Move {
         this.inMove = false;
     }
 
-    private boolean validate() {
-        return true;
-    }
-
     private void startMove(Point pos) {
         startPos = pos;
         inMove = true;
     }
 
     private void attemptMove(Point pos) {
-        if(startPos.equals(pos)) {
+        Piece piece = pieces[startPos.x][startPos.y];
+        if(!piece.move(pieces, startPos, pos)) {
             inMove = false;
             return;
         }
-        if(!validate()) {
-            return;
-        }
         endPos = pos;
-        pieces[endPos.x][endPos.y] = pieces[startPos.x][startPos.y];
+        pieces[endPos.x][endPos.y] = piece;
         pieces[startPos.x][startPos.y] = null;
         inMove = false;
         whiteOnMove = !whiteOnMove;
@@ -48,10 +42,13 @@ public class Move {
                 startMove(pos);
             }
             return;
-            
+        }
+        if(startPos.equals(pos)) {
+            inMove = false;
+            return;
         }
         attemptMove(pos);
-    }  
+    }
 
     public void mouseReleased(Point pos) {
         if(!inMove || startPos.equals(pos)) {

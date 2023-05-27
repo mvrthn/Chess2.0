@@ -11,14 +11,19 @@ public class Piece {
     private final boolean isWhite;
 
     public Piece(String name, char id, boolean isWhite) {
-        String path = "../pieces/";
+        String path = "pieces/";
         try {
+            String p = path + (isWhite ? "white" : "black") + name + ".png";
             icon = ImageIO.read(new File(path + (isWhite ? "white" : "black") + name + ".png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
         this.id = (isWhite ? Character.toUpperCase(id) : id);
         this.isWhite = isWhite;
+    }
+
+    public boolean move(Piece[][] pieces, Point beg, Point end) {
+        return true;
     }
 
     public Image getIcon() {

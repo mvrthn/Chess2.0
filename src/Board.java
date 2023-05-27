@@ -11,8 +11,8 @@ public class Board extends JPanel {
     private Piece[][] pieces;
 
     public Board(int squareSize, Piece[][] pieces, Mouse mouse) {
-        whiteSquareColor = new Color(0xf0d9b5);
-        blackSquareColor = new Color(0xb58863);
+        whiteSquareColor = new Color(0xF0D9B5);
+        blackSquareColor = new Color(0xB58863);
         whiteHighlighted = new Color(0x829769);
         blackHighlighted = new Color(0x646f40);
 
