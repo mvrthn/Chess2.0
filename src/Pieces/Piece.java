@@ -28,6 +28,10 @@ public class Piece {
         return true;
     }
 
+    public boolean kingIsSafe(Piece[][] pieces, Point beg, Point end) {
+        return true;
+    }
+
     public Image getIcon() {
         return icon;
     }

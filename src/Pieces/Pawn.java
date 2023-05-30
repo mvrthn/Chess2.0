@@ -41,7 +41,6 @@ public class Pawn extends Piece {
             return true;
         }
         if(end.equals(game.getEnPassant())) {
-            pieces[end.x][beg.y] = null;
             game.setEnPassant(null);
             return true;
         }
