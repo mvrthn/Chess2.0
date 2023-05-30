@@ -1,3 +1,5 @@
+package Chess;
+
 import Pieces.Piece;
 
 import javax.swing.JPanel;

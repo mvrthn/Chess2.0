@@ -1,3 +1,5 @@
+package Chess;
+
 import Pieces.Piece;
 import Pieces.PieceFactory;
 
@@ -33,6 +35,18 @@ public class Game {
 
     public Board getBoard() {
         return board;
+    }
+
+    public Point getEnPassant() {
+        return enPassant;
+    }
+
+    public boolean[] getCasteles() {
+        return castleAvailable;
+    }
+
+    public void setEnPassant(Point enPassant) {
+        this.enPassant = enPassant;
     }
 
     public void makeMove(Point startPos, Point endPos) {

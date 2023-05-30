@@ -1,3 +1,6 @@
+import Chess.Game;
+import Chess.Frame;
+
 public class Chess {
     private final Frame frame;
     private Game game;

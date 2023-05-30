@@ -1,3 +1,5 @@
+package Chess;
+
 import Pieces.Piece;
 
 import java.awt.*;
@@ -24,7 +26,7 @@ public class Move {
 
     private void attemptMove(Point pos) {
         Piece piece = pieces[startPos.x][startPos.y];
-        if(!piece.move(pieces, startPos, pos)) {
+        if(!piece.move(pieces, startPos, pos, game)) {
             inMove = false;
             return;
         }

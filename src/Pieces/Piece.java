@@ -1,5 +1,7 @@
 package Pieces;
 
+import Chess.Game;
+
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.io.File;
@@ -11,7 +13,7 @@ public class Piece {
     private final boolean isWhite;
 
     public Piece(String name, char id, boolean isWhite) {
-        String path = "pieces/";
+        String path = "../pieces/";
         try {
             String p = path + (isWhite ? "white" : "black") + name + ".png";
             icon = ImageIO.read(new File(path + (isWhite ? "white" : "black") + name + ".png"));
@@ -22,7 +24,7 @@ public class Piece {
         this.isWhite = isWhite;
     }
 
-    public boolean move(Piece[][] pieces, Point beg, Point end) {
+    public boolean move(Piece[][] pieces, Point beg, Point end, Game game) {
         return true;
     }
 
