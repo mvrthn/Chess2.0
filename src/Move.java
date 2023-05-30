@@ -46,7 +46,7 @@ public class Move {
         changePos.add(new Point(startPos.x, startPos.y));
         changePieces.add(pieces[startPos.x][startPos.y]);
         pieces[startPos.x][startPos.y] = null;
-        if(!piece.kingIsSafe(pieces, startPos, endPos)) {
+        if(!piece.kingIsSafe(pieces, whiteOnMove)) {
             for(int i = 0; i < changePos.size(); i++) {
                 pieces[changePos.get(i).x][changePos.get(i).y] = changePieces.get(i);
             }
