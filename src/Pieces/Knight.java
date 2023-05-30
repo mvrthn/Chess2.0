@@ -6,7 +6,7 @@ import java.awt.*;
 
 public class Knight extends Piece {
     public Knight(boolean isWhite) {
-        super("Knight", 'k', isWhite);
+        super("Knight", 'n', isWhite);
     }
 
     @Override 

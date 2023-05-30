@@ -13,7 +13,7 @@ public class Piece {
     private final boolean isWhite;
 
     public Piece(String name, char id, boolean isWhite) {
-        String path = "../pieces/";
+        String path = "pieces/";
         try {
             String p = path + (isWhite ? "white" : "black") + name + ".png";
             icon = ImageIO.read(new File(path + (isWhite ? "white" : "black") + name + ".png"));
@@ -35,7 +35,11 @@ public class Piece {
             for(int j = 0; j < 8; j++) {
                 if(pieces[i][j] != null && pieces[i][j].getId() == c) {
                     kingPos = new Point(i, j);
+                    break;
                 }
+            }
+            if(kingPos != null) {
+                break;
             }
         }
         for(int a = 1, b = 2, i = 0; i < 8; i++, b *= -1) {
@@ -56,7 +60,6 @@ public class Piece {
                 return false;
             }
         }
-        System.out.println("1");
         for(int j = 0, a = 1; j < 2; j++, a = -1) {
             for(int i = kingPos.x + a; i < 8 && i >= 0; i += a) {
                 if(pieces[i][kingPos.y] == null) {
