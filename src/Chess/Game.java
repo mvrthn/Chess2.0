@@ -15,11 +15,11 @@ public class Game {
     private int halfMoveClock;
     private int moveCount;
     private Move move;
+    private Point[] kingsPos;
 
     public Game(String fen) {
         int squareSize = 80;
 
-        pieces = new Piece[8][8];
         loadFEN(fen);
 
         move = new Move(this, pieces, whiteOnMove);
@@ -41,8 +41,16 @@ public class Game {
         return enPassant;
     }
 
-    public boolean[] getCasteles() {
+    public boolean[] getCastles() {
         return castleAvailable;
+    }
+
+    public void changeKingPos(boolean isWhite, Point pos) {
+        kingsPos[isWhite ? 0 : 1] = new Point(pos);
+    }
+
+    public Point getKingPos(boolean isWhite) {
+        return kingsPos[isWhite ? 0 : 1];
     }
 
     public void setEnPassant(Point enPassant) {
@@ -54,8 +62,10 @@ public class Game {
     }
 
     public void loadFEN(String fen) {
-        PieceFactory factory = new PieceFactory();
         String[] split = fen.split(" ", 6);
+
+        pieces = new Piece[8][8];
+        kingsPos = new Point[2];
 
         int i = 0, j = 0;
         for(char c : split[0].toCharArray()) {
@@ -67,7 +77,13 @@ public class Game {
                 i = 0;
             }
             else {
-                pieces[i][j] = factory.createPiece(c);
+                pieces[i][j] = PieceFactory.createPiece(c);
+                if(c == 'K') {
+                    kingsPos[0] = new Point(i, j);
+                }
+                else if(c == 'k') {
+                    kingsPos[1] = new Point(i, j);
+                }
                 i++;
             }
         }

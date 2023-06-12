@@ -11,6 +11,10 @@ public class King extends Piece {
 
     @Override
     public boolean move(Piece[][] pieces, Point beg, Point end, Game game) {
-        return Math.abs(beg.x - end.x) <= 1 && Math.abs(beg.y - end.y) <= 1;
+        if(Math.abs(beg.x - end.x) > 1 || Math.abs(beg.y - end.y) > 1) {
+            return false;
+        }
+        game.changeKingPos(isWhite(), end);
+        return true;
     }
 }

@@ -28,20 +28,8 @@ public class Piece {
         return true;
     }
 
-    public boolean kingIsSafe(Piece[][] pieces, boolean whiteOnMove) {
-        Point kingPos = null;
-        char c = whiteOnMove ? 'K' : 'k';
-        for(int i = 0; i < 8; i++) {
-            for(int j = 0; j < 8; j++) {
-                if(pieces[i][j] != null && pieces[i][j].getId() == c) {
-                    kingPos = new Point(i, j);
-                    break;
-                }
-            }
-            if(kingPos != null) {
-                break;
-            }
-        }
+    public boolean kingIsSafe(Piece[][] pieces, boolean whiteOnMove, Game game) {
+        final Point kingPos = game.getKingPos(whiteOnMove);
         for(int a = 1, b = 2, i = 0; i < 8; i++, b *= -1) {
             if(i % 2 == 1) {
                 a *= -1;
@@ -100,6 +88,46 @@ public class Piece {
                 break;
             }
         }
+        for(int i = 0, a = 1, b = 1; i < 4; i++) {
+            if(i % 2 == 1) {
+                b *= -1;
+            }
+            if(i == 2) {
+                a = -1;
+            }
+            for(int x = kingPos.x + a, y = kingPos.y + b; x >= 0 && x < 8 && y >= 0 && y < 8; x += a, y += b) {
+                if(pieces[x][y] == null) {
+                    continue;
+                }
+                if(pieces[x][y].isWhite() == whiteOnMove) {
+                    break;
+                }
+                if(pieces[x][y].getId() == (whiteOnMove ? 'q' : 'Q')) {
+                    return false;
+                }
+                if(pieces[x][y].getId() == (whiteOnMove ? 'b' : 'B')) {
+                    return false;
+                }
+                if(pieces[x][y].getId() == (whiteOnMove ? 'p' : 'P') && Math.abs(x) == 1) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    public boolean checkIfPathIsClear(Piece[][] pieces, Point beg, Point end) {
+        int a = (int) Math.signum(end.x - beg.x);
+        int b = (int) Math.signum(end.y - beg.y);
+        int x = beg.x;
+        int y = beg.y;
+        do {
+            x += a;
+            y += b;
+            if(pieces[x][y] != null) {
+                return false;
+            }
+        } while(x != end.x || y != end.y);
         return true;
     }
 

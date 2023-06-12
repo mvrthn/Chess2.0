@@ -1,7 +1,7 @@
 package Pieces;
 
 public class PieceFactory {
-    public Piece createPiece(char c) {
+    public static Piece createPiece(char c) {
         boolean isWhite = false;
         if(c <= 'R') {
             isWhite = true;

@@ -14,6 +14,6 @@ public class Rook extends Piece {
         if(beg.x != end.x && beg.y != end.y) {
             return false;
         }
-        return true;
+        return checkIfPathIsClear(pieces, beg, end);
     }
 }
