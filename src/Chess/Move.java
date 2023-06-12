@@ -1,6 +1,5 @@
 package Chess;
 
-import Pieces.King;
 import Pieces.Piece;
 
 import java.awt.Point;
@@ -47,12 +46,15 @@ public class Move {
         changePos.add(new Point(startPos.x, startPos.y));
         changePieces.add(pieces[startPos.x][startPos.y]);
         pieces[startPos.x][startPos.y] = null;
-        if(!piece.kingIsSafe(pieces, whiteOnMove, game)) {
+        if(piece.kingInDanger(pieces, whiteOnMove, game)) {
             for(int i = 0; i < changePos.size(); i++) {
                 pieces[changePos.get(i).x][changePos.get(i).y] = changePieces.get(i);
             }
             if(Character.toUpperCase(piece.getId()) == 'K') {
                 game.changeKingPos(whiteOnMove, startPos);
+            }
+            if(Character.toUpperCase(piece.getId()) == 'P') {
+                game.setEnPassant(enPassant);
             }
             return;
         }

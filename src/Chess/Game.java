@@ -41,8 +41,13 @@ public class Game {
         return enPassant;
     }
 
-    public boolean[] getCastles() {
-        return castleAvailable;
+    public boolean getCastle(boolean isWhite, boolean kingSide) {
+        return castleAvailable[(isWhite ? 0 : 2) + (kingSide ? 0 : 1)];
+    }
+
+    public void useCastle(boolean isWhite) {
+        castleAvailable[isWhite ? 0 : 2] = false;
+        castleAvailable[isWhite ? 1 : 3] = false;
     }
 
     public void changeKingPos(boolean isWhite, Point pos) {

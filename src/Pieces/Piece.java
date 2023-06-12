@@ -15,7 +15,6 @@ public class Piece {
     public Piece(String name, char id, boolean isWhite) {
         String path = "pieces/";
         try {
-            String p = path + (isWhite ? "white" : "black") + name + ".png";
             icon = ImageIO.read(new File(path + (isWhite ? "white" : "black") + name + ".png"));
         } catch (IOException e) {
             e.printStackTrace();
@@ -28,7 +27,7 @@ public class Piece {
         return true;
     }
 
-    public boolean kingIsSafe(Piece[][] pieces, boolean whiteOnMove, Game game) {
+    public boolean kingInDanger(Piece[][] pieces, boolean whiteOnMove, Game game) {
         final Point kingPos = game.getKingPos(whiteOnMove);
         for(int a = 1, b = 2, i = 0; i < 8; i++, b *= -1) {
             if(i % 2 == 1) {
@@ -44,8 +43,8 @@ public class Piece {
             if(pieces[kingPos.x + a][kingPos.y + b] == null) {
                 continue;
             }
-            if(pieces[kingPos.x + a][kingPos.y + b].getId() == (whiteOnMove ? 'k' : 'K')) {
-                return false;
+            if(pieces[kingPos.x + a][kingPos.y + b].getId() == (whiteOnMove ? 'n' : 'N')) {
+                return true;
             }
         }
         for(int j = 0, a = 1; j < 2; j++, a = -1) {
@@ -57,13 +56,13 @@ public class Piece {
                     break;
                 }
                 if(pieces[i][kingPos.y].getId() == (whiteOnMove ? 'q' : 'Q')) {
-                    return false;
+                    return true;
                 }
                 if(pieces[i][kingPos.y].getId() == (whiteOnMove ? 'r' : 'R')) {
-                    return false;
+                    return true;
                 }
                 if(pieces[i][kingPos.y].getId() == (whiteOnMove ? 'k' : 'K') && Math.abs(i - kingPos.x) == 1) {
-                    return false;
+                    return true;
                 }
                 break;
             }
@@ -77,13 +76,13 @@ public class Piece {
                     break;
                 }
                 if(pieces[kingPos.x][i].getId() == (whiteOnMove ? 'q' : 'Q')) {
-                    return false;
+                    return true;
                 }
                 if(pieces[kingPos.x][i].getId() == (whiteOnMove ? 'r' : 'R')) {
-                    return false;
+                    return true;
                 }
                 if(pieces[kingPos.x][i].getId() == (whiteOnMove ? 'k' : 'K') && Math.abs(i - kingPos.y) == 1) {
-                    return false;
+                    return true;
                 }
                 break;
             }
@@ -103,31 +102,31 @@ public class Piece {
                     break;
                 }
                 if(pieces[x][y].getId() == (whiteOnMove ? 'q' : 'Q')) {
-                    return false;
+                    return true;
                 }
                 if(pieces[x][y].getId() == (whiteOnMove ? 'b' : 'B')) {
-                    return false;
+                    return true;
                 }
                 if(pieces[x][y].getId() == (whiteOnMove ? 'p' : 'P') && Math.abs(x) == 1) {
-                    return false;
+                    return true;
                 }
             }
         }
-        return true;
+        return false;
     }
 
     public boolean checkIfPathIsClear(Piece[][] pieces, Point beg, Point end) {
         int a = (int) Math.signum(end.x - beg.x);
         int b = (int) Math.signum(end.y - beg.y);
-        int x = beg.x;
-        int y = beg.y;
-        do {
-            x += a;
-            y += b;
+        int x = beg.x + a;
+        int y = beg.y + b;
+        while(x != end.x || y != end.y) {
             if(pieces[x][y] != null) {
                 return false;
             }
-        } while(x != end.x || y != end.y);
+            x += a;
+            y += b;
+        }
         return true;
     }
 
